@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.big.song.credit.sup.mapper.TpelAcctBsInfSgmtMapper" >
+  <resultMap id="BaseResultMap" type="com.big.song.credit.sup.dao.TpelAcctBsInfSgmt" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="busi_lines" property="busiLines" jdbcType="VARCHAR" />
+    <result column="busi_dtl_lines" property="busiDtlLines" jdbcType="VARCHAR" />
+    <result column="open_date" property="openDate" jdbcType="TIMESTAMP" />
+    <result column="cy" property="cy" jdbcType="VARCHAR" />
+    <result column="acct_cred_line" property="acctCredLine" jdbcType="DECIMAL" />
+    <result column="loan_amt" property="loanAmt" jdbcType="DECIMAL" />
+    <result column="flag" property="flag" jdbcType="VARCHAR" />
+    <result column="due_date" property="dueDate" jdbcType="TIMESTAMP" />
+    <result column="repay_mode" property="repayMode" jdbcType="VARCHAR" />
+    <result column="repay_freqcy" property="repayFreqcy" jdbcType="VARCHAR" />
+    <result column="repay_prd" property="repayPrd" jdbcType="DECIMAL" />
+    <result column="apply_busi_dist" property="applyBusiDist" jdbcType="VARCHAR" />
+    <result column="guar_mode" property="guarMode" jdbcType="VARCHAR" />
+    <result column="oth_repy_guar_way" property="othRepyGuarWay" jdbcType="VARCHAR" />
+    <result column="asset_trand_flag" property="assetTrandFlag" jdbcType="VARCHAR" />
+    <result column="fund_sou" property="fundSou" jdbcType="VARCHAR" />
+    <result column="loan_form" property="loanForm" jdbcType="VARCHAR" />
+    <result column="credit_id" property="creditId" jdbcType="VARCHAR" />
+    <result column="cust_id" property="custId" jdbcType="VARCHAR" />
+    <result column="loan_con_code" property="loanConCode" jdbcType="VARCHAR" />
+    <result column="first_hou_loan_flag" property="firstHouLoanFlag" jdbcType="VARCHAR" />
+    <result column="dept_code" property="deptCode" jdbcType="VARCHAR" />
+    <result column="corp_code" property="corpCode" jdbcType="VARCHAR" />
+    <result column="info_up_date" property="infoUpDate" jdbcType="TIMESTAMP" />
+    <result column="transaction_id" property="transactionId" jdbcType="VARCHAR" />
+    <result column="acct_no" property="acctNo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, busi_lines, busi_dtl_lines, open_date, cy, acct_cred_line, loan_amt, flag, due_date, 
+    repay_mode, repay_freqcy, repay_prd, apply_busi_dist, guar_mode, oth_repy_guar_way, 
+    asset_trand_flag, fund_sou, loan_form, credit_id, cust_id, loan_con_code, first_hou_loan_flag, 
+    dept_code, corp_code, info_up_date, transaction_id, acct_no
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.big.song.credit.sup.dao.TpelAcctBsInfSgmtExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tpel_acct_bs_inf_sgmt
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tpel_acct_bs_inf_sgmt
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tpel_acct_bs_inf_sgmt
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.big.song.credit.sup.dao.TpelAcctBsInfSgmtExample" >
+    delete from tpel_acct_bs_inf_sgmt
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.big.song.credit.sup.dao.TpelAcctBsInfSgmt" >
+    insert into tpel_acct_bs_inf_sgmt (id, busi_lines, busi_dtl_lines, 
+      open_date, cy, acct_cred_line, 
+      loan_amt, flag, due_date, 
+      repay_mode, repay_freqcy, repay_prd, 
+      apply_busi_dist, guar_mode, oth_repy_guar_way, 
+      asset_trand_flag, fund_sou, loan_form, 
+      credit_id, cust_id, loan_con_code, 
+      first_hou_loan_flag, dept_code, corp_code, 
+      info_up_date, transaction_id, acct_no
+      )
+    values (#{id,jdbcType=BIGINT}, #{busiLines,jdbcType=VARCHAR}, #{busiDtlLines,jdbcType=VARCHAR}, 
+      #{openDate,jdbcType=TIMESTAMP}, #{cy,jdbcType=VARCHAR}, #{acctCredLine,jdbcType=DECIMAL}, 
+      #{loanAmt,jdbcType=DECIMAL}, #{flag,jdbcType=VARCHAR}, #{dueDate,jdbcType=TIMESTAMP}, 
+      #{repayMode,jdbcType=VARCHAR}, #{repayFreqcy,jdbcType=VARCHAR}, #{repayPrd,jdbcType=DECIMAL}, 
+      #{applyBusiDist,jdbcType=VARCHAR}, #{guarMode,jdbcType=VARCHAR}, #{othRepyGuarWay,jdbcType=VARCHAR}, 
+      #{assetTrandFlag,jdbcType=VARCHAR}, #{fundSou,jdbcType=VARCHAR}, #{loanForm,jdbcType=VARCHAR}, 
+      #{creditId,jdbcType=VARCHAR}, #{custId,jdbcType=VARCHAR}, #{loanConCode,jdbcType=VARCHAR}, 
+      #{firstHouLoanFlag,jdbcType=VARCHAR}, #{deptCode,jdbcType=VARCHAR}, #{corpCode,jdbcType=VARCHAR}, 
+      #{infoUpDate,jdbcType=TIMESTAMP}, #{transactionId,jdbcType=VARCHAR}, #{acctNo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.big.song.credit.sup.dao.TpelAcctBsInfSgmt" >
+    insert into tpel_acct_bs_inf_sgmt
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="busiLines != null" >
+        busi_lines,
+      </if>
+      <if test="busiDtlLines != null" >
+        busi_dtl_lines,
+      </if>
+      <if test="openDate != null" >
+        open_date,
+      </if>
+      <if test="cy != null" >
+        cy,
+      </if>
+      <if test="acctCredLine != null" >
+        acct_cred_line,
+      </if>
+      <if test="loanAmt != null" >
+        loan_amt,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="dueDate != null" >
+        due_date,
+      </if>
+      <if test="repayMode != null" >
+        repay_mode,
+      </if>
+      <if test="repayFreqcy != null" >
+        repay_freqcy,
+      </if>
+      <if test="repayPrd != null" >
+        repay_prd,
+      </if>
+      <if test="applyBusiDist != null" >
+        apply_busi_dist,
+      </if>
+      <if test="guarMode != null" >
+        guar_mode,
+      </if>
+      <if test="othRepyGuarWay != null" >
+        oth_repy_guar_way,
+      </if>
+      <if test="assetTrandFlag != null" >
+        asset_trand_flag,
+      </if>
+      <if test="fundSou != null" >
+        fund_sou,
+      </if>
+      <if test="loanForm != null" >
+        loan_form,
+      </if>
+      <if test="creditId != null" >
+        credit_id,
+      </if>
+      <if test="custId != null" >
+        cust_id,
+      </if>
+      <if test="loanConCode != null" >
+        loan_con_code,
+      </if>
+      <if test="firstHouLoanFlag != null" >
+        first_hou_loan_flag,
+      </if>
+      <if test="deptCode != null" >
+        dept_code,
+      </if>
+      <if test="corpCode != null" >
+        corp_code,
+      </if>
+      <if test="infoUpDate != null" >
+        info_up_date,
+      </if>
+      <if test="transactionId != null" >
+        transaction_id,
+      </if>
+      <if test="acctNo != null" >
+        acct_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="busiLines != null" >
+        #{busiLines,jdbcType=VARCHAR},
+      </if>
+      <if test="busiDtlLines != null" >
+        #{busiDtlLines,jdbcType=VARCHAR},
+      </if>
+      <if test="openDate != null" >
+        #{openDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cy != null" >
+        #{cy,jdbcType=VARCHAR},
+      </if>
+      <if test="acctCredLine != null" >
+        #{acctCredLine,jdbcType=DECIMAL},
+      </if>
+      <if test="loanAmt != null" >
+        #{loanAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="dueDate != null" >
+        #{dueDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repayMode != null" >
+        #{repayMode,jdbcType=VARCHAR},
+      </if>
+      <if test="repayFreqcy != null" >
+        #{repayFreqcy,jdbcType=VARCHAR},
+      </if>
+      <if test="repayPrd != null" >
+        #{repayPrd,jdbcType=DECIMAL},
+      </if>
+      <if test="applyBusiDist != null" >
+        #{applyBusiDist,jdbcType=VARCHAR},
+      </if>
+      <if test="guarMode != null" >
+        #{guarMode,jdbcType=VARCHAR},
+      </if>
+      <if test="othRepyGuarWay != null" >
+        #{othRepyGuarWay,jdbcType=VARCHAR},
+      </if>
+      <if test="assetTrandFlag != null" >
+        #{assetTrandFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="fundSou != null" >
+        #{fundSou,jdbcType=VARCHAR},
+      </if>
+      <if test="loanForm != null" >
+        #{loanForm,jdbcType=VARCHAR},
+      </if>
+      <if test="creditId != null" >
+        #{creditId,jdbcType=VARCHAR},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="loanConCode != null" >
+        #{loanConCode,jdbcType=VARCHAR},
+      </if>
+      <if test="firstHouLoanFlag != null" >
+        #{firstHouLoanFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="deptCode != null" >
+        #{deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="corpCode != null" >
+        #{corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="infoUpDate != null" >
+        #{infoUpDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transactionId != null" >
+        #{transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="acctNo != null" >
+        #{acctNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.big.song.credit.sup.dao.TpelAcctBsInfSgmtExample" resultType="java.lang.Integer" >
+    select count(*) from tpel_acct_bs_inf_sgmt
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tpel_acct_bs_inf_sgmt
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.busiLines != null" >
+        busi_lines = #{record.busiLines,jdbcType=VARCHAR},
+      </if>
+      <if test="record.busiDtlLines != null" >
+        busi_dtl_lines = #{record.busiDtlLines,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openDate != null" >
+        open_date = #{record.openDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cy != null" >
+        cy = #{record.cy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.acctCredLine != null" >
+        acct_cred_line = #{record.acctCredLine,jdbcType=DECIMAL},
+      </if>
+      <if test="record.loanAmt != null" >
+        loan_amt = #{record.loanAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.flag != null" >
+        flag = #{record.flag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dueDate != null" >
+        due_date = #{record.dueDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.repayMode != null" >
+        repay_mode = #{record.repayMode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repayFreqcy != null" >
+        repay_freqcy = #{record.repayFreqcy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repayPrd != null" >
+        repay_prd = #{record.repayPrd,jdbcType=DECIMAL},
+      </if>
+      <if test="record.applyBusiDist != null" >
+        apply_busi_dist = #{record.applyBusiDist,jdbcType=VARCHAR},
+      </if>
+      <if test="record.guarMode != null" >
+        guar_mode = #{record.guarMode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.othRepyGuarWay != null" >
+        oth_repy_guar_way = #{record.othRepyGuarWay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assetTrandFlag != null" >
+        asset_trand_flag = #{record.assetTrandFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fundSou != null" >
+        fund_sou = #{record.fundSou,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanForm != null" >
+        loan_form = #{record.loanForm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creditId != null" >
+        credit_id = #{record.creditId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custId != null" >
+        cust_id = #{record.custId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanConCode != null" >
+        loan_con_code = #{record.loanConCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstHouLoanFlag != null" >
+        first_hou_loan_flag = #{record.firstHouLoanFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptCode != null" >
+        dept_code = #{record.deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.corpCode != null" >
+        corp_code = #{record.corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.infoUpDate != null" >
+        info_up_date = #{record.infoUpDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.transactionId != null" >
+        transaction_id = #{record.transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.acctNo != null" >
+        acct_no = #{record.acctNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tpel_acct_bs_inf_sgmt
+    set id = #{record.id,jdbcType=BIGINT},
+      busi_lines = #{record.busiLines,jdbcType=VARCHAR},
+      busi_dtl_lines = #{record.busiDtlLines,jdbcType=VARCHAR},
+      open_date = #{record.openDate,jdbcType=TIMESTAMP},
+      cy = #{record.cy,jdbcType=VARCHAR},
+      acct_cred_line = #{record.acctCredLine,jdbcType=DECIMAL},
+      loan_amt = #{record.loanAmt,jdbcType=DECIMAL},
+      flag = #{record.flag,jdbcType=VARCHAR},
+      due_date = #{record.dueDate,jdbcType=TIMESTAMP},
+      repay_mode = #{record.repayMode,jdbcType=VARCHAR},
+      repay_freqcy = #{record.repayFreqcy,jdbcType=VARCHAR},
+      repay_prd = #{record.repayPrd,jdbcType=DECIMAL},
+      apply_busi_dist = #{record.applyBusiDist,jdbcType=VARCHAR},
+      guar_mode = #{record.guarMode,jdbcType=VARCHAR},
+      oth_repy_guar_way = #{record.othRepyGuarWay,jdbcType=VARCHAR},
+      asset_trand_flag = #{record.assetTrandFlag,jdbcType=VARCHAR},
+      fund_sou = #{record.fundSou,jdbcType=VARCHAR},
+      loan_form = #{record.loanForm,jdbcType=VARCHAR},
+      credit_id = #{record.creditId,jdbcType=VARCHAR},
+      cust_id = #{record.custId,jdbcType=VARCHAR},
+      loan_con_code = #{record.loanConCode,jdbcType=VARCHAR},
+      first_hou_loan_flag = #{record.firstHouLoanFlag,jdbcType=VARCHAR},
+      dept_code = #{record.deptCode,jdbcType=VARCHAR},
+      corp_code = #{record.corpCode,jdbcType=VARCHAR},
+      info_up_date = #{record.infoUpDate,jdbcType=TIMESTAMP},
+      transaction_id = #{record.transactionId,jdbcType=VARCHAR},
+      acct_no = #{record.acctNo,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.big.song.credit.sup.dao.TpelAcctBsInfSgmt" >
+    update tpel_acct_bs_inf_sgmt
+    <set >
+      <if test="busiLines != null" >
+        busi_lines = #{busiLines,jdbcType=VARCHAR},
+      </if>
+      <if test="busiDtlLines != null" >
+        busi_dtl_lines = #{busiDtlLines,jdbcType=VARCHAR},
+      </if>
+      <if test="openDate != null" >
+        open_date = #{openDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cy != null" >
+        cy = #{cy,jdbcType=VARCHAR},
+      </if>
+      <if test="acctCredLine != null" >
+        acct_cred_line = #{acctCredLine,jdbcType=DECIMAL},
+      </if>
+      <if test="loanAmt != null" >
+        loan_amt = #{loanAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="dueDate != null" >
+        due_date = #{dueDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repayMode != null" >
+        repay_mode = #{repayMode,jdbcType=VARCHAR},
+      </if>
+      <if test="repayFreqcy != null" >
+        repay_freqcy = #{repayFreqcy,jdbcType=VARCHAR},
+      </if>
+      <if test="repayPrd != null" >
+        repay_prd = #{repayPrd,jdbcType=DECIMAL},
+      </if>
+      <if test="applyBusiDist != null" >
+        apply_busi_dist = #{applyBusiDist,jdbcType=VARCHAR},
+      </if>
+      <if test="guarMode != null" >
+        guar_mode = #{guarMode,jdbcType=VARCHAR},
+      </if>
+      <if test="othRepyGuarWay != null" >
+        oth_repy_guar_way = #{othRepyGuarWay,jdbcType=VARCHAR},
+      </if>
+      <if test="assetTrandFlag != null" >
+        asset_trand_flag = #{assetTrandFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="fundSou != null" >
+        fund_sou = #{fundSou,jdbcType=VARCHAR},
+      </if>
+      <if test="loanForm != null" >
+        loan_form = #{loanForm,jdbcType=VARCHAR},
+      </if>
+      <if test="creditId != null" >
+        credit_id = #{creditId,jdbcType=VARCHAR},
+      </if>
+      <if test="custId != null" >
+        cust_id = #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="loanConCode != null" >
+        loan_con_code = #{loanConCode,jdbcType=VARCHAR},
+      </if>
+      <if test="firstHouLoanFlag != null" >
+        first_hou_loan_flag = #{firstHouLoanFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="deptCode != null" >
+        dept_code = #{deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="corpCode != null" >
+        corp_code = #{corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="infoUpDate != null" >
+        info_up_date = #{infoUpDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transactionId != null" >
+        transaction_id = #{transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="acctNo != null" >
+        acct_no = #{acctNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.big.song.credit.sup.dao.TpelAcctBsInfSgmt" >
+    update tpel_acct_bs_inf_sgmt
+    set busi_lines = #{busiLines,jdbcType=VARCHAR},
+      busi_dtl_lines = #{busiDtlLines,jdbcType=VARCHAR},
+      open_date = #{openDate,jdbcType=TIMESTAMP},
+      cy = #{cy,jdbcType=VARCHAR},
+      acct_cred_line = #{acctCredLine,jdbcType=DECIMAL},
+      loan_amt = #{loanAmt,jdbcType=DECIMAL},
+      flag = #{flag,jdbcType=VARCHAR},
+      due_date = #{dueDate,jdbcType=TIMESTAMP},
+      repay_mode = #{repayMode,jdbcType=VARCHAR},
+      repay_freqcy = #{repayFreqcy,jdbcType=VARCHAR},
+      repay_prd = #{repayPrd,jdbcType=DECIMAL},
+      apply_busi_dist = #{applyBusiDist,jdbcType=VARCHAR},
+      guar_mode = #{guarMode,jdbcType=VARCHAR},
+      oth_repy_guar_way = #{othRepyGuarWay,jdbcType=VARCHAR},
+      asset_trand_flag = #{assetTrandFlag,jdbcType=VARCHAR},
+      fund_sou = #{fundSou,jdbcType=VARCHAR},
+      loan_form = #{loanForm,jdbcType=VARCHAR},
+      credit_id = #{creditId,jdbcType=VARCHAR},
+      cust_id = #{custId,jdbcType=VARCHAR},
+      loan_con_code = #{loanConCode,jdbcType=VARCHAR},
+      first_hou_loan_flag = #{firstHouLoanFlag,jdbcType=VARCHAR},
+      dept_code = #{deptCode,jdbcType=VARCHAR},
+      corp_code = #{corpCode,jdbcType=VARCHAR},
+      info_up_date = #{infoUpDate,jdbcType=TIMESTAMP},
+      transaction_id = #{transactionId,jdbcType=VARCHAR},
+      acct_no = #{acctNo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

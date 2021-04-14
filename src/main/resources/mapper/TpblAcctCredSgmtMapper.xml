@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.big.song.credit.sup.mapper.TpblAcctCredSgmtMapper" >
+  <resultMap id="BaseResultMap" type="com.big.song.credit.sup.dao.TpblAcctCredSgmt" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="credit_no" property="creditNo" jdbcType="VARCHAR" />
+    <result column="cust_id" property="custId" jdbcType="VARCHAR" />
+    <result column="stat" property="stat" jdbcType="VARCHAR" />
+    <result column="no_rpt" property="noRpt" jdbcType="VARCHAR" />
+    <result column="get_time" property="getTime" jdbcType="TIMESTAMP" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="dept_code" property="deptCode" jdbcType="VARCHAR" />
+    <result column="change_date" property="changeDate" jdbcType="TIMESTAMP" />
+    <result column="corp_code" property="corpCode" jdbcType="VARCHAR" />
+    <result column="info_up_date" property="infoUpDate" jdbcType="TIMESTAMP" />
+    <result column="transaction_id" property="transactionId" jdbcType="VARCHAR" />
+    <result column="rela_id" property="relaId" jdbcType="DECIMAL" />
+    <result column="acct_no" property="acctNo" jdbcType="VARCHAR" />
+    <result column="busi_hash" property="busiHash" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, credit_no, cust_id, stat, no_rpt, get_time, operator, dept_code, change_date, 
+    corp_code, info_up_date, transaction_id, rela_id, acct_no, busi_hash
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.big.song.credit.sup.dao.TpblAcctCredSgmtExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tpbl_acct_cred_sgmt
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tpbl_acct_cred_sgmt
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tpbl_acct_cred_sgmt
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.big.song.credit.sup.dao.TpblAcctCredSgmtExample" >
+    delete from tpbl_acct_cred_sgmt
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.big.song.credit.sup.dao.TpblAcctCredSgmt" >
+    insert into tpbl_acct_cred_sgmt (id, credit_no, cust_id, 
+      stat, no_rpt, get_time, 
+      operator, dept_code, change_date, 
+      corp_code, info_up_date, transaction_id, 
+      rela_id, acct_no, busi_hash
+      )
+    values (#{id,jdbcType=BIGINT}, #{creditNo,jdbcType=VARCHAR}, #{custId,jdbcType=VARCHAR}, 
+      #{stat,jdbcType=VARCHAR}, #{noRpt,jdbcType=VARCHAR}, #{getTime,jdbcType=TIMESTAMP}, 
+      #{operator,jdbcType=VARCHAR}, #{deptCode,jdbcType=VARCHAR}, #{changeDate,jdbcType=TIMESTAMP}, 
+      #{corpCode,jdbcType=VARCHAR}, #{infoUpDate,jdbcType=TIMESTAMP}, #{transactionId,jdbcType=VARCHAR}, 
+      #{relaId,jdbcType=DECIMAL}, #{acctNo,jdbcType=VARCHAR}, #{busiHash,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.big.song.credit.sup.dao.TpblAcctCredSgmt" >
+    insert into tpbl_acct_cred_sgmt
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="creditNo != null" >
+        credit_no,
+      </if>
+      <if test="custId != null" >
+        cust_id,
+      </if>
+      <if test="stat != null" >
+        stat,
+      </if>
+      <if test="noRpt != null" >
+        no_rpt,
+      </if>
+      <if test="getTime != null" >
+        get_time,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="deptCode != null" >
+        dept_code,
+      </if>
+      <if test="changeDate != null" >
+        change_date,
+      </if>
+      <if test="corpCode != null" >
+        corp_code,
+      </if>
+      <if test="infoUpDate != null" >
+        info_up_date,
+      </if>
+      <if test="transactionId != null" >
+        transaction_id,
+      </if>
+      <if test="relaId != null" >
+        rela_id,
+      </if>
+      <if test="acctNo != null" >
+        acct_no,
+      </if>
+      <if test="busiHash != null" >
+        busi_hash,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="creditNo != null" >
+        #{creditNo,jdbcType=VARCHAR},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="stat != null" >
+        #{stat,jdbcType=VARCHAR},
+      </if>
+      <if test="noRpt != null" >
+        #{noRpt,jdbcType=VARCHAR},
+      </if>
+      <if test="getTime != null" >
+        #{getTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="deptCode != null" >
+        #{deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="changeDate != null" >
+        #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="corpCode != null" >
+        #{corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="infoUpDate != null" >
+        #{infoUpDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transactionId != null" >
+        #{transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="relaId != null" >
+        #{relaId,jdbcType=DECIMAL},
+      </if>
+      <if test="acctNo != null" >
+        #{acctNo,jdbcType=VARCHAR},
+      </if>
+      <if test="busiHash != null" >
+        #{busiHash,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.big.song.credit.sup.dao.TpblAcctCredSgmtExample" resultType="java.lang.Integer" >
+    select count(*) from tpbl_acct_cred_sgmt
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tpbl_acct_cred_sgmt
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.creditNo != null" >
+        credit_no = #{record.creditNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custId != null" >
+        cust_id = #{record.custId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stat != null" >
+        stat = #{record.stat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.noRpt != null" >
+        no_rpt = #{record.noRpt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.getTime != null" >
+        get_time = #{record.getTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.operator != null" >
+        operator = #{record.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptCode != null" >
+        dept_code = #{record.deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.changeDate != null" >
+        change_date = #{record.changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.corpCode != null" >
+        corp_code = #{record.corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.infoUpDate != null" >
+        info_up_date = #{record.infoUpDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.transactionId != null" >
+        transaction_id = #{record.transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.relaId != null" >
+        rela_id = #{record.relaId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.acctNo != null" >
+        acct_no = #{record.acctNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.busiHash != null" >
+        busi_hash = #{record.busiHash,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tpbl_acct_cred_sgmt
+    set id = #{record.id,jdbcType=BIGINT},
+      credit_no = #{record.creditNo,jdbcType=VARCHAR},
+      cust_id = #{record.custId,jdbcType=VARCHAR},
+      stat = #{record.stat,jdbcType=VARCHAR},
+      no_rpt = #{record.noRpt,jdbcType=VARCHAR},
+      get_time = #{record.getTime,jdbcType=TIMESTAMP},
+      operator = #{record.operator,jdbcType=VARCHAR},
+      dept_code = #{record.deptCode,jdbcType=VARCHAR},
+      change_date = #{record.changeDate,jdbcType=TIMESTAMP},
+      corp_code = #{record.corpCode,jdbcType=VARCHAR},
+      info_up_date = #{record.infoUpDate,jdbcType=TIMESTAMP},
+      transaction_id = #{record.transactionId,jdbcType=VARCHAR},
+      rela_id = #{record.relaId,jdbcType=DECIMAL},
+      acct_no = #{record.acctNo,jdbcType=VARCHAR},
+      busi_hash = #{record.busiHash,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.big.song.credit.sup.dao.TpblAcctCredSgmt" >
+    update tpbl_acct_cred_sgmt
+    <set >
+      <if test="creditNo != null" >
+        credit_no = #{creditNo,jdbcType=VARCHAR},
+      </if>
+      <if test="custId != null" >
+        cust_id = #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="stat != null" >
+        stat = #{stat,jdbcType=VARCHAR},
+      </if>
+      <if test="noRpt != null" >
+        no_rpt = #{noRpt,jdbcType=VARCHAR},
+      </if>
+      <if test="getTime != null" >
+        get_time = #{getTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="deptCode != null" >
+        dept_code = #{deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="changeDate != null" >
+        change_date = #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="corpCode != null" >
+        corp_code = #{corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="infoUpDate != null" >
+        info_up_date = #{infoUpDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transactionId != null" >
+        transaction_id = #{transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="relaId != null" >
+        rela_id = #{relaId,jdbcType=DECIMAL},
+      </if>
+      <if test="acctNo != null" >
+        acct_no = #{acctNo,jdbcType=VARCHAR},
+      </if>
+      <if test="busiHash != null" >
+        busi_hash = #{busiHash,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.big.song.credit.sup.dao.TpblAcctCredSgmt" >
+    update tpbl_acct_cred_sgmt
+    set credit_no = #{creditNo,jdbcType=VARCHAR},
+      cust_id = #{custId,jdbcType=VARCHAR},
+      stat = #{stat,jdbcType=VARCHAR},
+      no_rpt = #{noRpt,jdbcType=VARCHAR},
+      get_time = #{getTime,jdbcType=TIMESTAMP},
+      operator = #{operator,jdbcType=VARCHAR},
+      dept_code = #{deptCode,jdbcType=VARCHAR},
+      change_date = #{changeDate,jdbcType=TIMESTAMP},
+      corp_code = #{corpCode,jdbcType=VARCHAR},
+      info_up_date = #{infoUpDate,jdbcType=TIMESTAMP},
+      transaction_id = #{transactionId,jdbcType=VARCHAR},
+      rela_id = #{relaId,jdbcType=DECIMAL},
+      acct_no = #{acctNo,jdbcType=VARCHAR},
+      busi_hash = #{busiHash,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
