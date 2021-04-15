@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.big.song.credit.sup.mapper.TpblAcctCredSgmtMapper" >
-  <resultMap id="BaseResultMap" type="com.big.song.credit.sup.dao.TpblAcctCredSgmt" >
+  <resultMap id="BaseResultMap" type="com.big.song.credit.sup.entity.po.TpblAcctCredSgmt" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="credit_no" property="creditNo" jdbcType="VARCHAR" />
     <result column="cust_id" property="custId" jdbcType="VARCHAR" />
@@ -80,7 +80,7 @@
     id, credit_no, cust_id, stat, no_rpt, get_time, operator, dept_code, change_date, 
     corp_code, info_up_date, transaction_id, rela_id, acct_no, busi_hash
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.big.song.credit.sup.dao.TpblAcctCredSgmtExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.big.song.credit.sup.entity.po.TpblAcctCredSgmtExample" >
     select
     <if test="distinct" >
       distinct
@@ -105,13 +105,13 @@
     delete from tpbl_acct_cred_sgmt
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.big.song.credit.sup.dao.TpblAcctCredSgmtExample" >
+  <delete id="deleteByExample" parameterType="com.big.song.credit.sup.entity.po.TpblAcctCredSgmtExample" >
     delete from tpbl_acct_cred_sgmt
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.big.song.credit.sup.dao.TpblAcctCredSgmt" >
+  <insert id="insert" parameterType="com.big.song.credit.sup.entity.po.TpblAcctCredSgmt" >
     insert into tpbl_acct_cred_sgmt (id, credit_no, cust_id, 
       stat, no_rpt, get_time, 
       operator, dept_code, change_date, 
@@ -125,7 +125,7 @@
       #{relaId,jdbcType=DECIMAL}, #{acctNo,jdbcType=VARCHAR}, #{busiHash,jdbcType=DECIMAL}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.big.song.credit.sup.dao.TpblAcctCredSgmt" >
+  <insert id="insertSelective" parameterType="com.big.song.credit.sup.entity.po.TpblAcctCredSgmt" >
     insert into tpbl_acct_cred_sgmt
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -222,7 +222,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.big.song.credit.sup.dao.TpblAcctCredSgmtExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.big.song.credit.sup.entity.po.TpblAcctCredSgmtExample" resultType="java.lang.Integer" >
     select count(*) from tpbl_acct_cred_sgmt
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -302,7 +302,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.big.song.credit.sup.dao.TpblAcctCredSgmt" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.big.song.credit.sup.entity.po.TpblAcctCredSgmt" >
     update tpbl_acct_cred_sgmt
     <set >
       <if test="creditNo != null" >
@@ -350,7 +350,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.big.song.credit.sup.dao.TpblAcctCredSgmt" >
+  <update id="updateByPrimaryKey" parameterType="com.big.song.credit.sup.entity.po.TpblAcctCredSgmt" >
     update tpbl_acct_cred_sgmt
     set credit_no = #{creditNo,jdbcType=VARCHAR},
       cust_id = #{custId,jdbcType=VARCHAR},

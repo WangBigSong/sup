@@ -1,20 +1,17 @@
 package com.big.song.credit.sup.service;
 
+import com.big.song.credit.sup.entity.dto.RequestDTO;
+
 public interface UtilService {
     /***
      * 生成删除报文
-     * @param inPath
-     * @param orgOcde
-     * @return
      */
-    void createDeleteTXT(String inPath,String orgOcde,Integer deleteCode);
+    void createDeleteTXT(RequestDTO requestDTO);
 
     /***
      * 修改报文名
-     * @param inPath
-     * @param newTime
      */
-    void changeTXTName(String inPath,String newTime);
+    void changeTXTName(RequestDTO requestDTO);
 
 
 }

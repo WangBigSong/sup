@@ -1,7 +1,7 @@
 package com.big.song.credit.sup.mapper;
 
-import com.big.song.credit.sup.dao.TpelAcctBsInfSgmt;
-import com.big.song.credit.sup.dao.TpelAcctBsInfSgmtExample;
+import com.big.song.credit.sup.entity.po.TpelAcctBsInfSgmt;
+import com.big.song.credit.sup.entity.po.TpelAcctBsInfSgmtExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

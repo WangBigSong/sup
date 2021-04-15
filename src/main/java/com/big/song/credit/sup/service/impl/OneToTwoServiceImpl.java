@@ -2,28 +2,22 @@ package com.big.song.credit.sup.service.impl;
 
 import com.alibaba.druid.util.StringUtils;
 import com.big.song.credit.sup.constant.CreditCode;
-import com.big.song.credit.sup.dao.*;
-import com.big.song.credit.sup.mapper.TpblAcctCredSgmtMapper;
-import com.big.song.credit.sup.mapper.TpecCtrctBsSgmtMapper;
+import com.big.song.credit.sup.entity.dto.RequestDTO;
+import com.big.song.credit.sup.entity.dto.WebResponse;
+import com.big.song.credit.sup.entity.po.TpelAcctBsInfSgmt;
+import com.big.song.credit.sup.entity.po.TpelAcctBsInfSgmtExample;
+import com.big.song.credit.sup.entity.po.TpelAcctCredSgmt;
+import com.big.song.credit.sup.entity.po.TpelAcctCredSgmtExample;
 import com.big.song.credit.sup.mapper.TpelAcctBsInfSgmtMapper;
 import com.big.song.credit.sup.mapper.TpelAcctCredSgmtMapper;
 import com.big.song.credit.sup.service.OneToTwoService;
 import com.big.song.credit.sup.util.TxtFileUtil;
-import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 @Service
 public class OneToTwoServiceImpl implements OneToTwoService {
@@ -37,20 +31,20 @@ public class OneToTwoServiceImpl implements OneToTwoService {
 
 
     @Override
-    public void addCreditNode(String filePath, String orgCode,Integer type) {
+    public void addCreditNode(RequestDTO requestDTO) {
         // 获取合同号，查询授信信息，将授信段组装进去
-        List<String> pathList = TxtFileUtil.getInstance().getTXTListInPath(filePath);
+        List<String> pathList = TxtFileUtil.getInstance().getTXTListInPath(requestDTO.getPath());
         Integer fileSize = 1;
         String txtEnd;
         List noCredt = new ArrayList<>();
         for (String eachPath : pathList){
             System.out.println(">>>>文件名：" + eachPath);
             // 得到追加了授信段的报文
-            Map<String,List<String>> value = readTXTAndAddCreditNode(eachPath,orgCode);
+            Map<String,List<String>> value = readTXTAndAddCreditNode(eachPath,requestDTO.getOrgCode());
             List<String> xmlContList = value.get("xmlCont");
             noCredt.add(String.join("\n",value.get("noCredt")));
             // 组装新的报文头
-            String txtHeader = TxtFileUtil.getInstance().writeHeadCont(xmlContList.size(),type,orgCode);
+            String txtHeader = TxtFileUtil.getInstance().writeHeadCont(xmlContList.size(),CreditCode.PERSON_LOAN_CODE,requestDTO.getOrgCode());
             // 将报文头插入到第一行
             xmlContList.add(0,txtHeader);
             if(fileSize < 10){
@@ -59,11 +53,21 @@ public class OneToTwoServiceImpl implements OneToTwoService {
                 txtEnd =  "00" + fileSize + "0";
             }
             // 创建新的报文并写入报文内容
-            TxtFileUtil.getInstance().createXMLAndWriteCont(filePath,type,xmlContList,orgCode,txtEnd,CreditCode.FILE_TXT);
+            TxtFileUtil.getInstance().createXMLAndWriteCont(requestDTO.getPath(),
+                                                            CreditCode.PERSON_LOAN_CODE,
+                                                            xmlContList,
+                                                            requestDTO.getOrgCode(),
+                                                            txtEnd,
+                                                            CreditCode.FILE_TXT);
             fileSize = fileSize + 1;
         }
          // 将未获取到授信的信息记录
-        TxtFileUtil.getInstance().createXMLAndWriteCont(filePath+File.separator+CreditCode.NEW_FILE_NO_CREDIT,type,noCredt,orgCode,CreditCode.END,CreditCode.FILE_TXT);
+        TxtFileUtil.getInstance().createXMLAndWriteCont(requestDTO.getPath()+File.separator+CreditCode.NEW_FILE_NO_CREDIT,
+                                                            CreditCode.PERSON_LOAN_CODE,
+                                                            noCredt,
+                                                            requestDTO.getOrgCode(),
+                                                            CreditCode.END,
+                                                            CreditCode.FILE_TXT);
     }
 
     /****
@@ -140,29 +144,29 @@ public class OneToTwoServiceImpl implements OneToTwoService {
 
 
     @Override
-    public void addAcctBsInfSgmt(String filePath, String orgCode, Integer type) {
+    public void addAcctBsInfSgmt(RequestDTO requestDTO) {
         // 获取合同号，查询借贷概括信息
-        List<String> pathList = TxtFileUtil.getInstance().getTXTListInPath(filePath);
+        List<String> pathList = TxtFileUtil.getInstance().getTXTListInPath(requestDTO.getPath());
         Integer fileSize = 1;
         String txtEnd;
         List noAcctBsInf = new ArrayList<>();
         for ( String path : pathList ) {
             System.out.println(">>>>文件名：" + path);
             // 追加借贷基础信息段
-            Map<String,List<String>> value = readTXTAndAddAcctBsInfSgmtNode(path,orgCode);
+            Map<String,List<String>> value = readTXTAndAddAcctBsInfSgmtNode(path,requestDTO.getOrgCode());
             List<String> xmlContList = value.get("xmlCont");
             noAcctBsInf.add(String.join("\n",value.get("noAcctBsInf")));
-            String txtHeader = TxtFileUtil.getInstance().writeHeadCont(xmlContList.size(),type,orgCode);
+            String txtHeader = TxtFileUtil.getInstance().writeHeadCont(xmlContList.size(),CreditCode.PERSON_LOAN_CODE,requestDTO.getOrgCode());
             xmlContList.add(0,txtHeader);
             if(fileSize < 10){
                 txtEnd = "000" + fileSize + "0";
             } else{
                 txtEnd =  "00" + fileSize + "0";
             }
-            TxtFileUtil.getInstance().createXMLAndWriteCont(filePath,type,xmlContList,orgCode,txtEnd,CreditCode.FILE_TXT);
+            TxtFileUtil.getInstance().createXMLAndWriteCont(requestDTO.getPath(),CreditCode.PERSON_LOAN_CODE,xmlContList,requestDTO.getOrgCode(),txtEnd,CreditCode.FILE_TXT);
             fileSize = fileSize + 1;
         }
-        TxtFileUtil.getInstance().createXMLAndWriteCont(filePath+File.separator+CreditCode.NEW_FILE_NO_ACCT_BS_INF,type,noAcctBsInf,orgCode,CreditCode.END,CreditCode.FILE_TXT);
+        TxtFileUtil.getInstance().createXMLAndWriteCont(requestDTO.getPath()+File.separator+CreditCode.NEW_FILE_NO_ACCT_BS_INF,CreditCode.PERSON_LOAN_CODE,noAcctBsInf,requestDTO.getOrgCode(),CreditCode.END,CreditCode.FILE_TXT);
     }
 
 
@@ -254,13 +258,13 @@ public class OneToTwoServiceImpl implements OneToTwoService {
 
 
     @Override
-    public void readFBTXTReturnDelSql(String filePath, String orgCode, Integer type) {
+    public void readFBTXTReturnDelSql(RequestDTO requestDTO) {
         // 获取合同号，查询借贷概括信息
-        List<String> pathList = TxtFileUtil.getInstance().getTXTListInPath(filePath);
+        List<String> pathList = TxtFileUtil.getInstance().getTXTListInPath(requestDTO.getPath());
         for ( String path : pathList ) {
             System.out.println(">>>>文件名：" + path);
-            List<String> sqlList = readFBTXTAndGetSQL(path,orgCode,type);
-            TxtFileUtil.getInstance().createXMLAndWriteCont(filePath,type,sqlList,orgCode,"001",CreditCode.FILE_SQL);
+            List<String> sqlList = readFBTXTAndGetSQL(path,requestDTO.getOrgCode(),requestDTO.getType());
+            TxtFileUtil.getInstance().createXMLAndWriteCont(requestDTO.getPath(),requestDTO.getType(),sqlList,requestDTO.getOrgCode(),"001",CreditCode.FILE_SQL);
         }
     }
 
@@ -308,5 +312,53 @@ public class OneToTwoServiceImpl implements OneToTwoService {
             }
         }
         return contList;
+    }
+
+    @Override
+    public boolean changePersonLoanSige(RequestDTO requestDTO) {
+        List<String> pathList = TxtFileUtil.getInstance().getTXTListInPath(requestDTO.getPath());
+        for (int i=0;i< pathList.size();i++) {
+            // 因为考虑到每行数据，用BufferedReader 比较方便
+            BufferedReader br = null;
+            BufferedWriter bw = null;
+            try {
+                br = new BufferedReader(new FileReader(pathList.get(i)));
+                // 输出路径 新文件名需要30位长度
+                // 文件名前 14 位是数据提供机构区段码，中间 8 位是
+                // “YYYYMMDD”格式的报文生成日期，最后 8 位是文件序号，由用户自行编制，保证文件名全局内不能重复
+                String num= i< 10 ? String.valueOf("0"+ i) : String.valueOf(i) ;
+                bw = new BufferedWriter(new FileWriter(requestDTO.getPath()
+                        + File.separator + requestDTO.getOrgCode()
+                        + new SimpleDateFormat("YYYYMMddHHmmss").format(new Date())
+                        + num
+                        + CreditCode.FILE_TXT));
+                String lineString =null;
+                while (true) {
+                    lineString = br.readLine();
+                    if (lineString == null) {
+                        break;
+                    }else {
+                        bw.write(CreditCode.PERSON_LOAN_CODE+","+lineString.replace(",","")+","+lineString); // 写入一行数据
+                        bw.newLine(); // 另起一行
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    bw.close();
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean changeCompanyLoanSige(RequestDTO requestDTO) {
+        // todo
+        return false;
     }
 }

@@ -1,7 +1,6 @@
 package com.big.song.credit.sup.util;
 
 import com.big.song.credit.sup.constant.CreditCode;
-import com.big.song.credit.sup.dao.TpelAcctBsInfSgmt;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;

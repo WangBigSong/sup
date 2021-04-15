@@ -1,4 +1,4 @@
-package com.big.song.credit.sup.dao;
+package com.big.song.credit.sup.entity.po;
 
 import java.math.BigDecimal;
 import java.util.Date;

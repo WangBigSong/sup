@@ -11,7 +11,7 @@ public class MakeDeleteTXT {
      * @param inPath
      * @param deleteCode
      */
-    public  void makeDeleteXMl(String inPath,Integer deleteCode,String orgOcde){
+    public void makeDeleteXMl(String inPath,Integer deleteCode,String orgOcde){
         // 读取所有的txt报文
         List<String> path = TxtFileUtil.getInstance().getTXTListInPath(inPath);
         System.out.println("总共读取："+path.size()+" 份报文");
@@ -86,5 +86,4 @@ public class MakeDeleteTXT {
         }
         return  contMap;
     }
-
 }

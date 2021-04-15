@@ -3,6 +3,7 @@ package com.big.song.credit.sup.util;
 import com.big.song.credit.sup.constant.CreditCode;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /***
@@ -59,15 +60,17 @@ public class ChangeTXTName {
     /***
      * 创建新的报文
      * @param path
-     * @param newTime
      */
-    public void creditNewTXTName(String path,String newTime){
+    public void creditNewTXTName(String path){
         List<String> files = TxtFileUtil.getInstance().getTXTListInPath(path);
         int i=1;
+        String newTime=new SimpleDateFormat("YYYYMMdd").format(new Date());
         for (String filePath : files){
             File file = new File(filePath);
             if(!file.isDirectory()){
-                String newName = file.getName().substring(0,14) + newTime + file.getName().substring(22,25) ;
+                String newName = file.getName().substring(0,14)
+                               + newTime
+                               + file.getName().substring(22,25) ;
                 if(i<10){
                     newName = newName + "000" + i + "0.txt";
                 }else{

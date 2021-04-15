@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.big.song.credit.sup.mapper.TpelAcctBsInfSgmtMapper" >
-  <resultMap id="BaseResultMap" type="com.big.song.credit.sup.dao.TpelAcctBsInfSgmt" >
+  <resultMap id="BaseResultMap" type="com.big.song.credit.sup.entity.po.TpelAcctBsInfSgmt" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="busi_lines" property="busiLines" jdbcType="VARCHAR" />
     <result column="busi_dtl_lines" property="busiDtlLines" jdbcType="VARCHAR" />
@@ -94,7 +94,7 @@
     asset_trand_flag, fund_sou, loan_form, credit_id, cust_id, loan_con_code, first_hou_loan_flag, 
     dept_code, corp_code, info_up_date, transaction_id, acct_no
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.big.song.credit.sup.dao.TpelAcctBsInfSgmtExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.big.song.credit.sup.entity.po.TpelAcctBsInfSgmtExample" >
     select
     <if test="distinct" >
       distinct
@@ -119,13 +119,13 @@
     delete from tpel_acct_bs_inf_sgmt
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.big.song.credit.sup.dao.TpelAcctBsInfSgmtExample" >
+  <delete id="deleteByExample" parameterType="com.big.song.credit.sup.entity.po.TpelAcctBsInfSgmtExample" >
     delete from tpel_acct_bs_inf_sgmt
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.big.song.credit.sup.dao.TpelAcctBsInfSgmt" >
+  <insert id="insert" parameterType="com.big.song.credit.sup.entity.po.TpelAcctBsInfSgmt" >
     insert into tpel_acct_bs_inf_sgmt (id, busi_lines, busi_dtl_lines, 
       open_date, cy, acct_cred_line, 
       loan_amt, flag, due_date, 
@@ -147,7 +147,7 @@
       #{infoUpDate,jdbcType=TIMESTAMP}, #{transactionId,jdbcType=VARCHAR}, #{acctNo,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.big.song.credit.sup.dao.TpelAcctBsInfSgmt" >
+  <insert id="insertSelective" parameterType="com.big.song.credit.sup.entity.po.TpelAcctBsInfSgmt" >
     insert into tpel_acct_bs_inf_sgmt
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -316,7 +316,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.big.song.credit.sup.dao.TpelAcctBsInfSgmtExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.big.song.credit.sup.entity.po.TpelAcctBsInfSgmtExample" resultType="java.lang.Integer" >
     select count(*) from tpel_acct_bs_inf_sgmt
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -444,7 +444,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.big.song.credit.sup.dao.TpelAcctBsInfSgmt" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.big.song.credit.sup.entity.po.TpelAcctBsInfSgmt" >
     update tpel_acct_bs_inf_sgmt
     <set >
       <if test="busiLines != null" >
@@ -528,7 +528,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.big.song.credit.sup.dao.TpelAcctBsInfSgmt" >
+  <update id="updateByPrimaryKey" parameterType="com.big.song.credit.sup.entity.po.TpelAcctBsInfSgmt" >
     update tpel_acct_bs_inf_sgmt
     set busi_lines = #{busiLines,jdbcType=VARCHAR},
       busi_dtl_lines = #{busiDtlLines,jdbcType=VARCHAR},
